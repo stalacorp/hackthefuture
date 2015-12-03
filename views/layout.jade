@@ -12,7 +12,11 @@ html(ng-app='Routes')
     script(src='/scripts/angular-resource/angular-resource.min.js')
     script(src='/scripts/ngmap/build/scripts/ng-map.min.js')
     script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJOLfo5eFbcn_lBz9i7YNzvgwTazgLdMU&signed_in=true&libraries=places&callback=angular.noop")
+    script(src='http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js')
+    script(src='/scripts/angular-leaflet-directive/dist/angular-leaflet-directive.min.js')
+    link(src='http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css')
     script(src='/javascripts/routes.js')
+
   body
     div.container
       div.row
