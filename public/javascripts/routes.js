@@ -77,17 +77,32 @@ app.controller('CodeCtrl', ['$scope', '$resource', '$location', '$http',
     function($scope, $resource, $location, $http){
 
         $scope.url = "https://api.mapbox.com/v4/directions/mapbox.walking/4.938185,51.321722;4.946987,51.326390.json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg";
-        $scope.routes = [];
 
-        $scope.add = function(){
-            $http.get($scope.url).then(function(r) {
-                $scope.routes = r.data;
-                $scope.routes.push($scope.newMessage);
+        var codes = [];
+
+        $http.get($scope.url).then(function(r) {
+
+            h = r.data.routes[0].steps[0].heading;
+
+            r.data.routes[0].steps.forEach(function(step) {
+
+                if (step.heading > h + 45) {
+
+                    codes.push('R');
+
+                } else if (step.heading < h - 45) {
+
+                    codes.push('L');
+                } else {
+
+                    codes.push('S');
+                }
+
             });
-        };
+            console.log(r.data);
 
-        response.routes[0].steps.forEach(function(step){
-
+            $scope.codes = codes;
         });
+
 
     }]);
