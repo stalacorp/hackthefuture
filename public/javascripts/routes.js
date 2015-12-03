@@ -27,22 +27,45 @@ app.controller('IndexCtrl', ['$scope', '$resource', '$location',
 
     }]);
 
-app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap',
-    function($scope, $resource, $location, NgMap){
+app.service('sharedProperties', function () {
+    var property = 'Niks';
+    return {
+        getLocs: function () {
+            return property;
+        },
+        setLocs: function(value) {
+            property = value;
+        }
+    };
+});
+
+app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedProperties',
+    function($scope, $resource, $location, NgMap, sharedProperties){
         var startAddress, destAddress;
 
         NgMap.getMap().then(function(map) {
             map.setCenter({"lat":50.503887 , "lng": 4.469936});
-
-
 
         });
 
         $scope.travelMode = "DRIVING";
 
         $scope.volgendeClick = function(){
+            $scope.error = null;
+            var stepsString="";
             if (typeof($scope.map.directionsRenderers[0].directions) !== 'undefined'){
-                console.log($scope.map.directionsRenderers[0].directions.routes[0]);
+                if ($scope.map.directionsRenderers[0].directions.routes[0].legs[0].steps.length <= 25) {
+                    $scope.map.directionsRenderers[0].directions.routes[0].legs[0].steps.forEach(function (step) {
+                        stepsString += step.start_location.lng() + ',' + step.start_location.lat() + ';';
+                    });
+                    console.log(stepsString);
+                    sharedProperties.setLocs(stepsString);
+                    $location.path('/code');
+                }else {
+                    $scope.error = "Te lange route"
+                }
+            }else {
+                $scope.error = "Onjuiste route";
             }
 
         };
@@ -54,7 +77,6 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap',
                 startAddress.geometry.location.lng()
             );
             $scope.origin = startAddress.formatted_address;
-            console.log(startAddress.formatted_address);
         };
 
 
@@ -66,10 +88,7 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap',
                 destAddress.geometry.location.lng()
             );
             $scope.dest = destAddress.formatted_address;
-            console.log($scope.map.directions);
         };
-
-
 
 
     }]);
