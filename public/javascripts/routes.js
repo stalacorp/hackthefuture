@@ -141,17 +141,22 @@ app.controller('CodeCtrl', ['$scope', '$resource', '$location', '$http','sharedP
 
             r.data.routes[0].steps.forEach(function(step) {
 
-                if (step.heading > h + 45) {
+                if (step.maneuver.type != "waypoint") {
+                    if (h - step.heading < 0) {
 
-                    codes.push('R');
+                        codes.push('L');
 
-                } else if (step.heading < h - 45) {
+                    } else if (h - step.heading > 10) {
 
-                    codes.push('L');
-                } else {
+                        codes.push('R');
+                    } else {
 
-                    codes.push('S');
+                        codes.push('S');
+                    }
+
+                    h = step.heading;
                 }
+
 
             });
             console.log(r.data);
