@@ -29,6 +29,7 @@ app.controller('IndexCtrl', ['$scope', '$resource', '$location',
 
 app.service('sharedProperties', function () {
     var property = 'Niks';
+    var mode;
     return {
         getLocs: function () {
             var pos = property.lastIndexOf(';');
@@ -37,7 +38,14 @@ app.service('sharedProperties', function () {
         },
         setLocs: function(value) {
             property = value;
+        },
+        getMode: function(){
+            return mode;
+        },
+        setMode: function(value){
+            mode = value;
         }
+
     };
 });
 
@@ -47,6 +55,9 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
 
         NgMap.getMap().then(function(map) {
             map.setCenter({"lat":50.503887 , "lng": 4.469936});
+            if (sharedProperties.getLocs()!= 'Nik'){
+
+            }
 
         });
 
@@ -62,6 +73,7 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
                     });
                     console.log(stepsString);
                     sharedProperties.setLocs(stepsString);
+                    sharedProperties.setMode($scope.travelMode);
                     $location.path('/code');
                 }else {
                     $scope.error = "Te lange route"
@@ -97,9 +109,9 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
 
 app.controller('CodeCtrl', ['$scope', '$resource', '$location', '$http','sharedProperties',
     function($scope, $resource, $location, $http, sharedProperties ){
-        console.log("https://api.mapbox.com/v4/directions/mapbox.walking/" + sharedProperties.getLocs() + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg");
+        console.log("https://api.mapbox.com/v4/directions/mapbox." + sharedProperties.getMode().toLowerCase() + "/" + sharedProperties.getLocs() + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg");
 
-        $scope.url = "https://api.mapbox.com/v4/directions/mapbox.walking/" + sharedProperties.getLocs() + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg";
+        $scope.url = "https://api.mapbox.com/v4/directions/mapbox." + sharedProperties.getMode().toLowerCase() + "/" + sharedProperties.getLocs() + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg";
 
         var codes = [];
 
