@@ -93,7 +93,7 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
                     sharedProperties.setMode($scope.travelMode);
                     sharedProperties.setDest($scope.dest);
                     sharedProperties.setOrigin($scope.origin);
-                    console.log($scope.dest);
+                    $location.path('/code');
 
                 }else {
                     $scope.error = "Te lange route"
