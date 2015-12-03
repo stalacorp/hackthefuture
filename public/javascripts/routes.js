@@ -30,6 +30,8 @@ app.controller('IndexCtrl', ['$scope', '$resource', '$location',
 app.service('sharedProperties', function () {
     var property = 'Niks';
     var mode;
+    var origin = null;
+    var dest;
     return {
         getLocs: function () {
             var pos = property.lastIndexOf(';');
@@ -44,6 +46,18 @@ app.service('sharedProperties', function () {
         },
         setMode: function(value){
             mode = value;
+        },
+        getOrigin: function(){
+            return origin;
+        },
+        setOrigin: function(value){
+            origin = value;
+        },
+        getDest: function(){
+            return dest;
+        },
+        setDest: function(value){
+            dest = value;
         }
 
     };
@@ -55,9 +69,12 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
 
         NgMap.getMap().then(function(map) {
             map.setCenter({"lat":50.503887 , "lng": 4.469936});
-            if (sharedProperties.getLocs()!= 'Nik'){
-
+            if (sharedProperties.getOrigin() !== null){
+                $scope.origin = sharedProperties.getOrigin();
+                $scope.dest = sharedProperties.getDest();
+                $scope.travelMode = sharedProperties.getMode();
             }
+            console.log(sharedProperties.getOrigin());
 
         });
 
@@ -74,7 +91,10 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
                     console.log(stepsString);
                     sharedProperties.setLocs(stepsString);
                     sharedProperties.setMode($scope.travelMode);
+                    sharedProperties.setDest($scope.dest);
+                    sharedProperties.setOrigin($scope.origin);
                     $location.path('/code');
+
                 }else {
                     $scope.error = "Te lange route"
                 }
