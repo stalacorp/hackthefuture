@@ -1,0 +1,17 @@
+doctype html
+html(ng-app='Routes')
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(href='/scripts/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+    script(src='/scripts/angular/angular.min.js')
+    script(src='/scripts/angular-simple-logger/dist/angular-simple-logger.min.js')
+    script(src='/scripts/angular-route/angular-route.min.js')
+    script(src='/scripts/angular-resource/angular-resource.min.js')
+    script(src='/javascripts/routes.js')
+  body
+    div.container
+      div.row
+        block content
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+    script(src='/scripts/bootstrap/dist/js/bootstrap.min.js')
