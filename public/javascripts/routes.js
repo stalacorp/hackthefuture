@@ -7,11 +7,6 @@ app.config(['$routeProvider', function($routeProvider){
             controller: 'PlanCtrl'
 
         })
-        .when('/map', {
-            templateUrl: 'routes/map.html',
-            controller: 'MapCtrl'
-
-        })
         .when('/code', {
             templateUrl: 'routes/code.html',
             controller: 'CodeCtrl'
@@ -67,10 +62,6 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap',
 
 
 
-    }]);
-
-app.controller('MapCtrl', ['$scope', '$resource', '$location',
-    function($scope, $resource, $location){
     }]);
 
 app.controller('CodeCtrl', ['$scope', '$resource', '$location', '$http',
