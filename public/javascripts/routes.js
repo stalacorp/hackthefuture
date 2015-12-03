@@ -97,6 +97,7 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
 
 app.controller('CodeCtrl', ['$scope', '$resource', '$location', '$http','sharedProperties',
     function($scope, $resource, $location, $http, sharedProperties ){
+        console.log("https://api.mapbox.com/v4/directions/mapbox.walking/" + sharedProperties.getLocs() + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg");
 
         $scope.url = "https://api.mapbox.com/v4/directions/mapbox.walking/" + sharedProperties.getLocs() + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg";
 
