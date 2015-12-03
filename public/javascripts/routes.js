@@ -1,8 +1,13 @@
-var app = angular.module('Routes', ['ngResource', 'ngRoute', 'ngMap', 'leaflet-directive']);
+var app = angular.module('Routes', ['ngResource', 'ngRoute', 'ngMap']);
 
 app.config(['$routeProvider', function($routeProvider){
     $routeProvider
         .when('/', {
+            templateUrl: 'routes/index.html',
+            controller: 'IndexCtrl'
+
+        })
+        .when('/address', {
             templateUrl: 'routes/address.html',
             controller: 'PlanCtrl'
 
@@ -16,6 +21,11 @@ app.config(['$routeProvider', function($routeProvider){
             redirectTo: '/'
         });
 }]);
+app.controller('IndexCtrl', ['$scope', '$resource', '$location',
+    function($scope, $resource, $location){
+
+
+    }]);
 
 app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap',
     function($scope, $resource, $location, NgMap){
