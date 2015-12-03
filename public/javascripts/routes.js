@@ -1,11 +1,4 @@
-var app = angular.module('Routes', ['ngResource', 'ngRoute']);
-
-$(function() {
-
-    alert('test');
-
-});
-
+var app = angular.module('Routes', ['ngResource', 'ngRoute', 'ngMap']);
 
 app.config(['$routeProvider', function($routeProvider){
     $routeProvider
@@ -22,23 +15,15 @@ app.config(['$routeProvider', function($routeProvider){
 app.controller('PlanCtrl', ['$scope', '$resource', '$location',
     function($scope, $resource, $location){
 
-        $scope.geolocate = function () {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var geolocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    var circle = new google.maps.Circle({
-                        center: geolocation,
-                        radius: position.coords.accuracy
-                    });
-                    autocomplete.setBounds(circle.getBounds());
-                });
-            }
+        var $scope = this;
+        $scope.types = "['establishment']";
+        $scope.placeChanged = function() {
+            $scope.place = this.getPlace();
+            console.log(
+                $scope.place.geometry.location.lat(),
+                $scope.place.geometry.location.lng()
+            );
+            $scope.map.setCenter($scope.place.geometry.location);
         }
-
-
-
 
     }]);

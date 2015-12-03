@@ -1,8 +1,8 @@
-$(function() {
-    alert('test');
+var placeSearch, autocomplete;
+$(function(){
+    initAutocomplete();
 });
 
-var placeSearch, autocomplete;
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
