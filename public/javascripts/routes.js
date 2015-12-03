@@ -96,7 +96,7 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
 app.controller('CodeCtrl', ['$scope', '$resource', '$location', '$http',
     function($scope, $resource, $location, $http){
 
-        $scope.url = "https://api.mapbox.com/v4/directions/mapbox.walking/4.938185,51.321722;4.946987,51.326390.json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg";
+        $scope.url = "https://api.mapbox.com/v4/directions/mapbox.walking/" + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg";
 
         var codes = [];
 
