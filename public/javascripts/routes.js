@@ -22,17 +22,37 @@ app.config(['$routeProvider', function($routeProvider){
         });
 }]);
 
-app.controller('PlanCtrl', ['$scope', '$resource', '$location',
-    function($scope, $resource, $location){
+app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap',
+    function($scope, $resource, $location, NgMap){
         var startAddress, destAddress;
+
+        NgMap.getMap().then(function(map) {
+            map.setCenter({"lat":50.503887 , "lng": 4.469936});
+
+
+
+        });
+
+        $scope.travelMode = "DRIVING";
+
+        $scope.volgendeClick = function(){
+            if (typeof($scope.map.directionsRenderers[0].directions) !== 'undefined'){
+                console.log($scope.map.directionsRenderers[0].directions.routes[0]);
+            }
+
+        };
+
         $scope.startPlaceChanged = function() {
             startAddress = this.getPlace();
             console.log(
                 startAddress.geometry.location.lat(),
                 startAddress.geometry.location.lng()
             );
-            $scope.map.setCenter($scope.place.geometry.location);
+            $scope.origin = startAddress.formatted_address;
+            console.log(startAddress.formatted_address);
         };
+
+
 
         $scope.destPlaceChanged = function() {
             destAddress = this.getPlace();
@@ -40,7 +60,11 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location',
                 destAddress.geometry.location.lat(),
                 destAddress.geometry.location.lng()
             );
+            $scope.dest = destAddress.formatted_address;
+            console.log($scope.map.directions);
         };
+
+
 
 
     }]);

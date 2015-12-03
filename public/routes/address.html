@@ -6,7 +6,6 @@
            id="startAddress"
            class="form-control"
            ng-model="startAddress"
-           component-restrictions="{country:'be'}"
            type="address"
            on-place-changed="startPlaceChanged()" />
 </div>
@@ -20,5 +19,22 @@
            type="address"
            on-place-changed="destPlaceChanged()" />
 </div>
-<a class="btn btn-primary">Volgende</a>
+<div class="form-group">
+    <label for="travelMode">Vervoermiddel</label>
+    <select class="form-control" ng-model="travelMode">
+        <option value="DRIVING">Auto</option>
+        <option value="WALKING">Te voet</option>
+        <option value="BICYCLING">Fiets</option>
+    </select>
+</div>
+<ng-map zoom="8" style="height:600px" >
+    <directions
+            draggable="true"
+            panel="directions-panel"
+            travel-mode="{{travelMode}}"
+            origin="{{origin}}"
+            destination="{{dest}}">
+    </directions>
+</ng-map>
+<a class="btn btn-primary" ng-click="volgendeClick()">Volgende</a>
 
