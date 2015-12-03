@@ -31,7 +31,9 @@ app.service('sharedProperties', function () {
     var property = 'Niks';
     return {
         getLocs: function () {
-            return property;
+            var pos = property.lastIndexOf(';');
+            property = property.substring(0,pos) + property.substring(pos+1);
+            return property.substring(0, property.length - 1);
         },
         setLocs: function(value) {
             property = value;
@@ -93,10 +95,10 @@ app.controller('PlanCtrl', ['$scope', '$resource', '$location','NgMap','sharedPr
 
     }]);
 
-app.controller('CodeCtrl', ['$scope', '$resource', '$location', '$http',
-    function($scope, $resource, $location, $http){
+app.controller('CodeCtrl', ['$scope', '$resource', '$location', '$http','sharedProperties',
+    function($scope, $resource, $location, $http, sharedProperties ){
 
-        $scope.url = "https://api.mapbox.com/v4/directions/mapbox.walking/" + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg";
+        $scope.url = "https://api.mapbox.com/v4/directions/mapbox.walking/" + sharedProperties.getLocs() + ".json?access_token=pk.eyJ1IjoibWF0dGhpYXNzdGFsYSIsImEiOiJjaWhwenp0ZHUwNGVmdXJseHl3cGtvaXd2In0.5nwG6E6MITfDVGlyR3vSeg";
 
         var codes = [];
 
