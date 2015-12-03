@@ -14,16 +14,23 @@ app.config(['$routeProvider', function($routeProvider){
 
 app.controller('PlanCtrl', ['$scope', '$resource', '$location',
     function($scope, $resource, $location){
-
-        var $scope = this;
-        $scope.types = "['establishment']";
-        $scope.placeChanged = function() {
-            $scope.place = this.getPlace();
+        var startAddress, destAddress;
+        $scope.startPlaceChanged = function() {
+            startAddress = this.getPlace();
             console.log(
-                $scope.place.geometry.location.lat(),
-                $scope.place.geometry.location.lng()
+                startAddress.geometry.location.lat(),
+                startAddress.geometry.location.lng()
             );
             $scope.map.setCenter($scope.place.geometry.location);
-        }
+        };
+
+        $scope.destPlaceChanged = function() {
+            destAddress = this.getPlace();
+            console.log(
+                destAddress.geometry.location.lat(),
+                destAddress.geometry.location.lng()
+            );
+        };
+
 
     }]);
